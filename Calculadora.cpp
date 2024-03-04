@@ -37,7 +37,7 @@ int main()
     return 0;
 }
 void Suma(){
-	int numero1, numero2, resultado;
+	float numero1, numero2, resultado;
     cout<<"Introduce el primer numero: ";
     cin>>numero1;
     cout<<"Introduce el segundo numero: ";
@@ -46,7 +46,7 @@ void Suma(){
     cout<<"El resultado es: "<<resultado;
 }
 void Resta(){
-	int numero1, numero2, resultado;
+	float numero1, numero2, resultado;
     cout<<"Introduce el primer numero: ";
     cin>>numero1;
     cout<<"Introduce el segundo numero: ";
@@ -56,7 +56,7 @@ void Resta(){
 }
 
 void Multiplicacion(){  
-    int numero1, numero2, resultado;
+    float numero1, numero2, resultado;
     cout<<"Introduce el primer numero: ";
     cin>>numero1;
     cout<<"Introduce el segundo numero: ";
@@ -65,7 +65,7 @@ void Multiplicacion(){
     cout<<"El resultado es: "<<resultado;
 }
 void Division(){
-	int numero1, numero2, resultado;
+	float numero1, numero2, resultado;
     cout<<"Introduce el primer numero: ";
     cin>>numero1;
     cout<<"Introduce el segundo numero: ";
