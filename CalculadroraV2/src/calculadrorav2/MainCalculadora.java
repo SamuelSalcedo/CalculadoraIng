@@ -156,10 +156,19 @@ private String operador, aux;
             }
         });
 
-        txtResultado.setEditable(false);
         txtResultado.setBackground(new java.awt.Color(204, 255, 51));
         txtResultado.setFont(new java.awt.Font("Silom", 0, 18)); // NOI18N
         txtResultado.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtResultado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtResultadoActionPerformed(evt);
+            }
+        });
+        txtResultado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtResultadoKeyTyped(evt);
+            }
+        });
 
         lblOperacion.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
 
@@ -372,7 +381,7 @@ private String operador, aux;
 
     private void btnOchoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOchoActionPerformed
         if(cantidad < limite){
-            cantidad ++;
+            this.cantidad ++;
             txtResultado.setText(this.txtResultado.getText()+"8");
         }else{
             mostrarLabel(this.lblOperacion,1500);
@@ -383,7 +392,7 @@ private String operador, aux;
 
     private void btnNueveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNueveActionPerformed
         if(cantidad < limite){
-            cantidad ++;
+            this.cantidad ++;
             txtResultado.setText(this.txtResultado.getText()+"9");
         }else{
             mostrarLabel(this.lblOperacion,1500);
@@ -394,7 +403,7 @@ private String operador, aux;
 
     private void btnSieteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSieteActionPerformed
         if(cantidad < limite){
-            cantidad ++;
+            this.cantidad ++;
             txtResultado.setText(this.txtResultado.getText()+"7");
         }else{
             mostrarLabel(this.lblOperacion,1500);
@@ -404,7 +413,7 @@ private String operador, aux;
 
     private void btnCuatroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuatroActionPerformed
         if(cantidad < limite){
-            cantidad ++;
+            this.cantidad ++;
             txtResultado.setText(this.txtResultado.getText()+"4");
         }else{
             mostrarLabel(this.lblOperacion,1500);
@@ -414,7 +423,7 @@ private String operador, aux;
 
     private void btnSeisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeisActionPerformed
         if(cantidad < limite){
-            cantidad ++;
+            this.cantidad ++;
             txtResultado.setText(this.txtResultado.getText()+"6");
         }else{
             mostrarLabel(this.lblOperacion,1500);
@@ -424,7 +433,7 @@ private String operador, aux;
 
     private void btnCincoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCincoActionPerformed
         if(cantidad < limite){
-            cantidad ++;
+            this.cantidad ++;
             txtResultado.setText(this.txtResultado.getText()+"5");
         }else{
             mostrarLabel(this.lblOperacion,1500);
@@ -434,7 +443,7 @@ private String operador, aux;
 
     private void btnUnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnoActionPerformed
         if(cantidad < limite){
-            cantidad ++;
+            this.cantidad ++;
             txtResultado.setText(this.txtResultado.getText()+"1");
         }else{
             mostrarLabel(this.lblOperacion,1500);
@@ -445,7 +454,7 @@ private String operador, aux;
 
     private void btnTresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTresActionPerformed
         if(cantidad < limite){
-            cantidad ++;
+            this.cantidad ++;
             txtResultado.setText(this.txtResultado.getText()+"3");
         }else{
             mostrarLabel(this.lblOperacion,1500);
@@ -456,7 +465,7 @@ private String operador, aux;
 
     private void btnDosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDosActionPerformed
         if(cantidad < limite){
-            cantidad ++;
+            this.cantidad ++;
             txtResultado.setText(this.txtResultado.getText()+"2");
         }else{
             mostrarLabel(this.lblOperacion,1500);
@@ -466,7 +475,7 @@ private String operador, aux;
 
     private void btnCeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCeroActionPerformed
         if(cantidad < limite){
-            cantidad ++;
+            this.cantidad ++;
             txtResultado.setText(this.txtResultado.getText()+"0");
         }else{
             mostrarLabel(this.lblOperacion,1500);
@@ -474,14 +483,14 @@ private String operador, aux;
         }
     }//GEN-LAST:event_btnCeroActionPerformed
 
-    
+    // punto decimal ************************************************************************
     private void btn_PuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_PuntoActionPerformed
         if(!(this.txtResultado.getText().contains("."))){
                 txtResultado.setText(this.txtResultado.getText()+".");
         }
     }//GEN-LAST:event_btn_PuntoActionPerformed
 
-    //boton =
+// ****************  boton =  ************************************************************************ 
     private void btn_IgualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IgualActionPerformed
             if(!this.txtResultado.getText().isEmpty()){
 
@@ -508,14 +517,14 @@ private String operador, aux;
         
     }//GEN-LAST:event_btn_IgualActionPerformed
 
-    //boton +
+    //boton +  ************************************************************************
     private void btnMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasActionPerformed
         //operacion mas 
         if(this.txtResultado.getText().isEmpty()){
             this.txtResultado.setText("");
             this.lblOperacion.setText("sin numeros");
         }else{
-            cantidad =0;
+            this.cantidad =0;
             this.num1 = Double.parseDouble(this.txtResultado.getText());
             this.operador="+";
             this.lblOperacion.setText("+");
@@ -523,8 +532,7 @@ private String operador, aux;
         }  
     }//GEN-LAST:event_btnMasActionPerformed
 
-        //botones de memoria
-
+        //botones de memoria  *********************************************************************************
     //boton MR
     private void btnMrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMrActionPerformed
       
@@ -533,31 +541,33 @@ private String operador, aux;
         
     }//GEN-LAST:event_btnMrActionPerformed
 
-    //boton M-
+    //boton M-          ************************************************************************
     private void btnMASActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMASActionPerformed
     if(this.txtResultado.getText().isEmpty()){
             this.txtResultado.setText("");
             this.lblOperacion.setText("sin numeros");
         }else{
-        
+            this.cantidad =0;
             this.memoria = this.memoria + Double.parseDouble(this.txtResultado.getText());
             this.lblMemoria.setVisible(true);
             this.lblMemoria.setText("M: "+this.memoria);
         }
     }//GEN-LAST:event_btnMASActionPerformed
-    //boton M-
+    
+    //boton M-   ************************************************************************
     private void btnMenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenosActionPerformed
         if(this.txtResultado.getText().isEmpty()){
             this.txtResultado.setText("");
             this.lblOperacion.setText("sin numeros");
         }else{
+            this.cantidad =0;
             this.memoria = this.memoria - Double.parseDouble(this.txtResultado.getText());
             this.lblMemoria.setVisible(true);
-                    this.lblMemoria.setText("M: "+this.memoria);
+            this.lblMemoria.setText("M: "+this.memoria);
         }
     }//GEN-LAST:event_btnMenosActionPerformed
 
-    //botones de clear y Memory Clear
+    //botones de clear y Memory Clear     ************************************************************************
     private void btnMcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMcActionPerformed
         this.txtResultado.setText("");
         this.cantidad =0;
@@ -569,12 +579,13 @@ private String operador, aux;
         this.lblMemoria.setVisible(false);
     }//GEN-LAST:event_btnMcActionPerformed
 
+    //boton multiplicacion  ************************************************************************
     private void btnMultiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMultiActionPerformed
         if(this.txtResultado.getText().isEmpty()){
             this.txtResultado.setText("");
             this.lblOperacion.setText("sin numeros");
         }else{
-            cantidad =0;
+            this.cantidad = 0;
             this.num1 = Double.parseDouble(this.txtResultado.getText());
             this.operador="*";
             this.lblOperacion.setText("*");
@@ -582,20 +593,22 @@ private String operador, aux;
         }  
     }//GEN-LAST:event_btnMultiActionPerformed
      
+    
+    ///  BOTON Resta ************************************************************************
     private void btnRestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaActionPerformed
         if(this.txtResultado.getText().isEmpty()){
             this.txtResultado.setText("");
             this.lblOperacion.setText("sin numeros");
 
         }else{
-            cantidad =0;
+            this.cantidad =0;
             this.num1 = Double.parseDouble(this.txtResultado.getText());
             this.operador="-";
             this.lblOperacion.setText("-");
             this.txtResultado.setText("");
         }  
     }//GEN-LAST:event_btnRestaActionPerformed
-    //boton /
+    //boton Divicion ************************************************************************
     private void btnDivActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDivActionPerformed
 
         if(this.txtResultado.getText().isEmpty()){
@@ -603,14 +616,16 @@ private String operador, aux;
             this.lblOperacion.setText("sin numeros");
 
         }else{
-            cantidad =0;
+            
+            this.cantidad =0;
             this.num1 = Double.parseDouble(this.txtResultado.getText());
             this.operador="/";
             this.lblOperacion.setText("/");
             this.txtResultado.setText("");
         }  
     }//GEN-LAST:event_btnDivActionPerformed
-    //boton C
+    
+    //boton C   ************************************************************************
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         this.txtResultado.setText("");
         this.cantidad =0;
@@ -620,7 +635,7 @@ private String operador, aux;
         this.lblOperacion.setText("");
     }//GEN-LAST:event_btnClearActionPerformed
 
-    //boton MS
+    //boton MS   ************************************************************************
     private void btnMemoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemoriaActionPerformed
         if(this.txtResultado.getText().isEmpty()){
             this.txtResultado.setText("");
@@ -632,11 +647,34 @@ private String operador, aux;
         }
     }//GEN-LAST:event_btnMemoriaActionPerformed
 
+    
+    //    txt resultado entrada de teclado  ************************************************************************
+    private void txtResultadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtResultadoKeyTyped
+  
+        if(this.cantidad < limite){
+            char numero = evt.getKeyChar();
+            this.cantidad ++;
+                if(!Character.isDigit(numero)){
+                    evt.consume();
+                }
+            }else{
+                txtResultado.setEditable(false);
+                mostrarLabel(this.lblOperacion,1500);
+            }
+        
+    }//GEN-LAST:event_txtResultadoKeyTyped
+
+    private void txtResultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtResultadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtResultadoActionPerformed
+
+// metodo de redondeo ************************************************************************
     public String redondeo(Double resultado){
         String retorno;
         Double res = Math.round(resultado * 100) / 100.0;
 
         retorno = Double.toString(resultado);
+        
         if(resultado % 1 == 0){
             retorno = retorno.substring(0,retorno.length()-2);
         }else{
@@ -645,7 +683,7 @@ private String operador, aux;
         return retorno;
     }
     
-    //visibilidad de un error
+   //visibilidad de un error  ************************************************************************
     public void mostrarLabel(JLabel label, int tiempo) {
         label.setVisible(true);
         this.lblOperacion.setText("limite de numeros");
