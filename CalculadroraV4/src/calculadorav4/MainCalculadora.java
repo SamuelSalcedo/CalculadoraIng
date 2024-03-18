@@ -1,5 +1,5 @@
 
-package calculadrorav2;
+package calculadorav4;
 import java.math.BigDecimal; 
 import javax.swing.JLabel;
 import javax.swing.Timer;
@@ -8,7 +8,7 @@ public class MainCalculadora extends javax.swing.JFrame {
 
 private StringBuilder numero = new StringBuilder();
 private double num1, num2, res, memoria;
-private int cantidad, limite = 10;
+private int cantidad =0, limite = 10;
 private String operador, aux;
 
     public MainCalculadora() {
@@ -506,7 +506,7 @@ private String operador, aux;
 
                 case "*":this.txtResultado.setText(redondeo(this.num1 * this.num2));  break;
 
-                case " " : this.lblOperacion.setText("NO OPERACION");break;
+                case " " : this.lblOperacion.setText("NO HAY OPERACION");break;
 
                 default : this.lblOperacion.setText("OPERACION INVALIDA"); break;
 
@@ -567,16 +567,17 @@ private String operador, aux;
         }
     }//GEN-LAST:event_btnMenosActionPerformed
 
-    //botones de clear y Memory Clear     ************************************************************************
+    //boton Memory Clear     ************************************************************************
     private void btnMcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMcActionPerformed
         this.txtResultado.setText("");
         this.cantidad =0;
         this.num1 = 0;
-        this.num1 = 0;
+        this.num2 = 0;
         this.operador = "";
         this.lblOperacion.setText("");
         this.memoria = 0;
         this.lblMemoria.setVisible(false);
+        txtResultado.setEditable(true);
     }//GEN-LAST:event_btnMcActionPerformed
 
     //boton multiplicacion  ************************************************************************
@@ -625,14 +626,15 @@ private String operador, aux;
         }  
     }//GEN-LAST:event_btnDivActionPerformed
     
-    //boton C   ************************************************************************
+    //boton CLEAR   ************************************************************************
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         this.txtResultado.setText("");
-        this.cantidad =0;
+        this.cantidad = 0;
         this.num1 = 0;
-        this.num1 = 0;
+        this.num2 = 0;
         this.operador = "";
         this.lblOperacion.setText("");
+        txtResultado.setEditable(true);
     }//GEN-LAST:event_btnClearActionPerformed
 
     //boton MS   ************************************************************************
@@ -650,10 +652,10 @@ private String operador, aux;
     
     //    txt resultado entrada de teclado  ************************************************************************
     private void txtResultadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtResultadoKeyTyped
-  
+
         if(this.cantidad < limite){
             char numero = evt.getKeyChar();
-            this.cantidad ++;
+            cantidad++;
                 if(!Character.isDigit(numero)){
                     evt.consume();
                 }
@@ -661,7 +663,6 @@ private String operador, aux;
                 txtResultado.setEditable(false);
                 mostrarLabel(this.lblOperacion,1500);
             }
-        
     }//GEN-LAST:event_txtResultadoKeyTyped
 
     private void txtResultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtResultadoActionPerformed
