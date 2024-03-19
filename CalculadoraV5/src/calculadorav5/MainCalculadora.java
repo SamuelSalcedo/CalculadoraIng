@@ -1,5 +1,5 @@
 
-package calculadorav4;
+package calculadorav5;
 import java.math.BigDecimal; 
 import javax.swing.JLabel;
 import javax.swing.Timer;
@@ -10,6 +10,8 @@ private StringBuilder numero = new StringBuilder();
 private double num1, num2, res, memoria;
 private int cantidad =0, limite = 10;
 private String operador, aux;
+private boolean operacionEjecutada = false;  // Bandera para indicar si la operación ya se ejecutó
+
 
     public MainCalculadora() {
         initComponents();
@@ -35,8 +37,6 @@ private String operador, aux;
         btn_Punto = new javax.swing.JButton();
         btn_Igual = new javax.swing.JButton();
         btnMas = new javax.swing.JButton();
-        txtResultado = new javax.swing.JTextField();
-        lblOperacion = new javax.swing.JLabel();
         btnMr = new javax.swing.JButton();
         btnMAS = new javax.swing.JButton();
         btnMenos = new javax.swing.JButton();
@@ -44,9 +44,15 @@ private String operador, aux;
         btnMulti = new javax.swing.JButton();
         btnResta = new javax.swing.JButton();
         btnDiv = new javax.swing.JButton();
-        lblMemoria = new javax.swing.JLabel();
         btnClear = new javax.swing.JButton();
         btnMemoria = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        txtOperacion = new javax.swing.JTextField();
+        txtResultado = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        lblOperacion = new javax.swing.JLabel();
+        lblMemoria = new javax.swing.JLabel();
+        btnNegativo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -156,22 +162,6 @@ private String operador, aux;
             }
         });
 
-        txtResultado.setBackground(new java.awt.Color(204, 255, 51));
-        txtResultado.setFont(new java.awt.Font("Silom", 0, 18)); // NOI18N
-        txtResultado.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtResultado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtResultadoActionPerformed(evt);
-            }
-        });
-        txtResultado.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtResultadoKeyTyped(evt);
-            }
-        });
-
-        lblOperacion.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-
         btnMr.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         btnMr.setText("MR");
         btnMr.addActionListener(new java.awt.event.ActionListener() {
@@ -244,6 +234,87 @@ private String operador, aux;
             }
         });
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 0));
+
+        txtOperacion.setEditable(false);
+        txtOperacion.setBackground(new java.awt.Color(204, 255, 51));
+        txtOperacion.setFont(new java.awt.Font("Silom", 0, 12)); // NOI18N
+        txtOperacion.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtOperacion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtOperacion.setFocusable(false);
+        txtOperacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtOperacionActionPerformed(evt);
+            }
+        });
+        txtOperacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtOperacionKeyTyped(evt);
+            }
+        });
+
+        txtResultado.setBackground(new java.awt.Color(204, 255, 51));
+        txtResultado.setFont(new java.awt.Font("Silom", 0, 18)); // NOI18N
+        txtResultado.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtResultado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtResultadoActionPerformed(evt);
+            }
+        });
+        txtResultado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtResultadoKeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(txtOperacion)
+            .addComponent(txtResultado)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(txtOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
+
+        lblOperacion.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(lblOperacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblMemoria, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMemoria, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(8, Short.MAX_VALUE))
+        );
+
+        btnNegativo.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        btnNegativo.setText("+/-");
+        btnNegativo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNegativoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -251,7 +322,6 @@ private String operador, aux;
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtResultado)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -300,31 +370,29 @@ private String operador, aux;
                             .addComponent(btnMenos, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnMr, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnMemoria, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnMAS, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 5, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblMemoria, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnMAS, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnNegativo, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addComponent(txtResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblOperacion, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblMemoria, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(btnMc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnDiv, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnMulti, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnMulti, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnNegativo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNueve, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -367,7 +435,7 @@ private String operador, aux;
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -385,7 +453,6 @@ private String operador, aux;
             txtResultado.setText(this.txtResultado.getText()+"8");
         }else{
             mostrarLabel(this.lblOperacion,1500);
-
             //this.lblOperacion.setText("limite de numeros");
         }
     }//GEN-LAST:event_btnOchoActionPerformed
@@ -492,19 +559,51 @@ private String operador, aux;
 
 // ****************  boton =  ************************************************************************ 
     private void btn_IgualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IgualActionPerformed
-            if(!this.txtResultado.getText().isEmpty()){
-
+            if(!this.txtResultado.getText().isEmpty() && !operacionEjecutada){
+                //agrega en numero del txtresultado a la variable num2
                 this.num2 = Double.parseDouble(this.txtResultado.getText());
+                //agrega el numero al txt operacion
+                this.txtOperacion.setText(this.txtOperacion.getText() + this.num2);
+                
+                //diferentes operaciones
                 switch(this.operador){       
-                    case "+": this.txtResultado.setText(redondeo(this.num1 + this.num2)); break;
+                    //caso de la suma 
+                    case "+": 
+                        this.txtResultado.setText(redondeo(this.num1 + this.num2));       
+                        this.num1 = 0;
+                        this.num2 = 0; 
+                        operacionEjecutada = true;  // Marcar que la operación = ya se ejecutó
+                    break;
 
-                case "-":this.txtResultado.setText(redondeo(res = this.num1 - this.num2));  break;
+                case "-":
+                    this.txtResultado.setText(redondeo(res = this.num1 - this.num2));  
+                    this.num1 = 0;
+                    this.num2 = 0; 
+                    operacionEjecutada = true;
+                break;
               
                 //para la division sea entre 0
-                case "/": if(this.num2 == 0){this.txtResultado.setText("Error Matematico");}
-                          else{this.txtResultado.setText(redondeo(this.num1 / this.num2));}  break;
+                case "/":
+                    
+                    if(this.num2 == 0){
+                        this.txtResultado.setText("Error Matematico");
+                        this.num1 = 0;
+                        this.num2 = 0; 
+                        operacionEjecutada = true;
+                    }else{
+                        this.txtResultado.setText(redondeo(this.num1 / this.num2));
+                        this.num1 = 0;
+                        this.num2 = 0; 
+                        operacionEjecutada = true;
+                    } 
+                break;
 
-                case "*":this.txtResultado.setText(redondeo(this.num1 * this.num2));  break;
+                case "*":
+                    this.txtResultado.setText(redondeo(this.num1 * this.num2)); 
+                    this.num1 = 0;
+                    this.num2 = 0; 
+                    operacionEjecutada = true;
+                break;
 
                 case " " : this.lblOperacion.setText("NO HAY OPERACION");break;
 
@@ -512,9 +611,9 @@ private String operador, aux;
 
             }
         }else{
-            this.txtResultado.setText("");
+            //mostrarNoOperacion(this.lblOperacion,1500);
+            
         }
-        
     }//GEN-LAST:event_btn_IgualActionPerformed
 
     //boton +  ************************************************************************
@@ -522,23 +621,24 @@ private String operador, aux;
         //operacion mas 
         if(this.txtResultado.getText().isEmpty()){
             this.txtResultado.setText("");
-            this.lblOperacion.setText("sin numeros");
+         //   this.lblOperacion.setText("sin numeros seleccionados");
         }else{
-            this.cantidad =0;
+            this.cantidad = 0;
             this.num1 = Double.parseDouble(this.txtResultado.getText());
             this.operador="+";
-            this.lblOperacion.setText("+");
+            this.txtOperacion.setText(this.txtResultado.getText()+" + ");
             this.txtResultado.setText("");
+            operacionEjecutada = false;
+
         }  
     }//GEN-LAST:event_btnMasActionPerformed
 
         //botones de memoria  *********************************************************************************
     //boton MR
     private void btnMrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMrActionPerformed
-      
-        this.lblMemoria.setText("M: "+this.memoria);
-        this.txtResultado.setText(Double.toString(this.memoria));
-        
+        this.lblMemoria.setText("M: "+ redondeoMemoria(this.memoria));
+        String numero = redondeoMemoria(this.memoria);
+        this.txtResultado.setText(numero);
     }//GEN-LAST:event_btnMrActionPerformed
 
     //boton M-          ************************************************************************
@@ -550,7 +650,7 @@ private String operador, aux;
             this.cantidad =0;
             this.memoria = this.memoria + Double.parseDouble(this.txtResultado.getText());
             this.lblMemoria.setVisible(true);
-            this.lblMemoria.setText("M: "+this.memoria);
+            this.lblMemoria.setText("M: "+ (redondeoMemoria(this.memoria)));
         }
     }//GEN-LAST:event_btnMASActionPerformed
     
@@ -563,12 +663,14 @@ private String operador, aux;
             this.cantidad =0;
             this.memoria = this.memoria - Double.parseDouble(this.txtResultado.getText());
             this.lblMemoria.setVisible(true);
-            this.lblMemoria.setText("M: "+this.memoria);
+            this.lblMemoria.setText("M: "+ (redondeoMemoria(this.memoria)));
         }
     }//GEN-LAST:event_btnMenosActionPerformed
 
     //boton Memory Clear     ************************************************************************
     private void btnMcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMcActionPerformed
+        this.txtOperacion.setText("");
+      
         this.txtResultado.setText("");
         this.cantidad =0;
         this.num1 = 0;
@@ -589,8 +691,9 @@ private String operador, aux;
             this.cantidad = 0;
             this.num1 = Double.parseDouble(this.txtResultado.getText());
             this.operador="*";
-            this.lblOperacion.setText("*");
-            this.txtResultado.setText("");
+            this.txtOperacion.setText(this.txtResultado.getText()+" * ");
+              this.txtResultado.setText("");
+              operacionEjecutada = false;
         }  
     }//GEN-LAST:event_btnMultiActionPerformed
      
@@ -605,8 +708,9 @@ private String operador, aux;
             this.cantidad =0;
             this.num1 = Double.parseDouble(this.txtResultado.getText());
             this.operador="-";
-            this.lblOperacion.setText("-");
+            this.txtOperacion.setText(this.txtResultado.getText()+" - ");
             this.txtResultado.setText("");
+            operacionEjecutada = false;
         }  
     }//GEN-LAST:event_btnRestaActionPerformed
     //boton Divicion ************************************************************************
@@ -621,13 +725,15 @@ private String operador, aux;
             this.cantidad =0;
             this.num1 = Double.parseDouble(this.txtResultado.getText());
             this.operador="/";
-            this.lblOperacion.setText("/");
+            this.txtOperacion.setText(this.txtResultado.getText()+" / ");
             this.txtResultado.setText("");
+            operacionEjecutada = false;
         }  
     }//GEN-LAST:event_btnDivActionPerformed
     
     //boton CLEAR   ************************************************************************
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        this.txtOperacion.setText("");
         this.txtResultado.setText("");
         this.cantidad = 0;
         this.num1 = 0;
@@ -644,20 +750,33 @@ private String operador, aux;
             this.lblOperacion.setText("sin numeros");
         }else{
             this.memoria = Double.parseDouble(this.txtResultado.getText());
+           // redondeoMemoria(this.memoria);
             this.lblMemoria.setVisible(true);
-            this.lblMemoria.setText("M: "+this.memoria);
+            this.lblMemoria.setText("M: "+ (redondeoMemoria(this.memoria)));
         }
     }//GEN-LAST:event_btnMemoriaActionPerformed
 
     
     //    txt resultado entrada de teclado  ************************************************************************
-    private void txtResultadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtResultadoKeyTyped
+    private void txtOperacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtOperacionKeyTyped
 
+    }//GEN-LAST:event_txtOperacionKeyTyped
+
+    private void txtOperacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOperacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtOperacionActionPerformed
+
+    private void txtResultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtResultadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtResultadoActionPerformed
+
+    private void txtResultadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtResultadoKeyTyped
         if(this.cantidad < limite){
             char numero = evt.getKeyChar();
-            cantidad++;
                 if(!Character.isDigit(numero)){
                     evt.consume();
+                }else{
+                    cantidad++;
                 }
             }else{
                 txtResultado.setEditable(false);
@@ -665,9 +784,16 @@ private String operador, aux;
             }
     }//GEN-LAST:event_txtResultadoKeyTyped
 
-    private void txtResultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtResultadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtResultadoActionPerformed
+    /// BOTON negativo *************************************************
+    private void btnNegativoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNegativoActionPerformed
+       //poner siempre al principio
+        String texto = txtResultado.getText();
+        if (texto.startsWith("-")) {
+        txtResultado.setText(texto.substring(1));
+        } else {
+            txtResultado.setText("-" + texto);
+        }
+    }//GEN-LAST:event_btnNegativoActionPerformed
 
 // metodo de redondeo ************************************************************************
     public String redondeo(Double resultado){
@@ -684,6 +810,18 @@ private String operador, aux;
         return retorno;
     }
     
+    // metodo de redondeo para el boton de memoria ************************************************************************
+    public String redondeoMemoria(Double resultado){
+        String retorno;
+
+        retorno = Double.toString(resultado);
+        
+        if(resultado % 1 == 0){
+            retorno = retorno.substring(0,retorno.length()-2);
+        }
+        return retorno;
+    }
+    
    //visibilidad de un error  ************************************************************************
     public void mostrarLabel(JLabel label, int tiempo) {
         label.setVisible(true);
@@ -693,7 +831,16 @@ private String operador, aux;
             label.setVisible(false);
         }).start();
     }
-    
+   //visibilidad de un error  ************************************************************************
+    public void mostrarNoOperacion(JLabel label, int tiempo) {
+        label.setVisible(true);
+                this.lblOperacion.setText("Realice una operacion");
+        
+        new Timer(tiempo, e -> {
+            label.setVisible(false);
+        }).start();
+    }
+        
     public static void main(String args[]) {
       
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -717,6 +864,7 @@ private String operador, aux;
     private javax.swing.JButton btnMenos;
     private javax.swing.JButton btnMr;
     private javax.swing.JButton btnMulti;
+    private javax.swing.JButton btnNegativo;
     private javax.swing.JButton btnNueve;
     private javax.swing.JButton btnOcho;
     private javax.swing.JButton btnResta;
@@ -727,8 +875,11 @@ private String operador, aux;
     private javax.swing.JButton btn_Igual;
     private javax.swing.JButton btn_Punto;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblMemoria;
     private javax.swing.JLabel lblOperacion;
+    private javax.swing.JTextField txtOperacion;
     private javax.swing.JTextField txtResultado;
     // End of variables declaration//GEN-END:variables
 }
